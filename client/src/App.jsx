@@ -1,78 +1,122 @@
 import { useState } from 'react';
-import pianoLogo from './assets/piano.png';
-import a from './assets/audio/a.mp3';
-import w from './assets/audio/w.mp3';
-import s from './assets/audio/s.mp3';
-import e from './assets/audio/e.mp3';
-import d from './assets/audio/d.mp3';
-import f from './assets/audio/f.mp3';
-import t from './assets/audio/t.mp3';
-import g from './assets/audio/g.mp3';
-import y from './assets/audio/y.mp3';
-import h from './assets/audio/h.mp3';
-import u from './assets/audio/u.mp3';
-import j from './assets/audio/j.mp3';
-import k from './assets/audio/k.mp3';
-import o from './assets/audio/o.mp3';
-import l from './assets/audio/l.mp3';
-import p from './assets/audio/p.mp3';
-import semicolon from './assets/audio/comma.mp3';
+import pianoLogoB from './assets/piano_black.png';
+import pianoLogoW from './assets/piano_white.png';
 import './App.css';
+import Piano from './components/Piano';
+import SongCard from './components/SongCard';
+import Rules from './components/modals/Rules';
+import { MdLightMode, MdDarkMode } from 'react-icons/md';
 
 function App() {
-  const [key, setKey] = useState('none');
+  // const [key, setKey] = useState('none');
+  const [isRulesClicked, setIsRulesClicked] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const handleKeyDown = (e) => {
-    let audio = document.querySelector(`audio[data-note="${e.key}"]`);
-    setKey(e.key);
-    audio.currentTime = 0;
-    audio !== null ? audio.play() : null;
+  const handleKeyPress = (e) => {
+    if (!!e.key) {
+      const element = document.querySelector(
+        `#${e.key === ';' ? 'semicolon' : e.key}`
+      );
+      element.classList.toggle('playing');
+      setTimeout(() => {
+        element.classList.toggle('playing');
+      }, '100');
+    } else {
+      return;
+    }
+    let sounds = document.querySelectorAll('audio');
+    for (let sound of sounds) {
+      // console.log(sound.getAttribute('data-note'), !sound.paused);
+      if (!sound.paused) {
+        sound.pause();
+        sound.currentTime = 0;
+      }
+    }
+    // console.log(sounds.length);
+    // console.log(e.key === undefined);
+    // let audio = document.querySelector(`audio[data-note="${e.key}"]`);
+    // console.log(audio);
+    let audio = !!e.key
+      ? document.querySelector(`audio[data-note="${e.key}"]`)
+      : document.querySelector(
+          `audio[data-note="${e.target.getAttribute('data-note')}"]`
+        );
+    if (audio !== null) {
+      // console.log('Not Null');a
+      playMedia(audio);
+    }
   };
-  const handleClick = (e) => {
+
+  async function playMedia(audio) {
+    try {
+      audio.currentTime = 0;
+      await audio.play();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleKeyboardButtonClick = (e) => {
     let inputElement = document.getElementById('hiddenInput');
     inputElement.style.visibility = 'visible'; // unhide the input
     inputElement.focus(); // focus on it so keyboard pops
     inputElement.style.visibility = 'hidden'; // hide it again
   };
 
+  const handleRulesClick = () => {
+    setIsRulesClicked(true);
+    console.log(isRulesClicked);
+  };
+
+  const handleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    console.log(isDarkMode);
+    let element = document.querySelector('.app');
+    element.classList.toggle('dark-mode');
+  };
+
   return (
-    <div tabIndex={0} onKeyDown={(e) => handleKeyDown(e)}>
-      <input
-        id='hiddenInput'
-        width={'100vw'}
-        height={'100vh'}
-        style={{ visibility: 'hidden' }}
-      />
-      <div>
-        <img src={pianoLogo} className='logo piano' alt='Piano logo' />
-      </div>
-      <h1>Noteability</h1>
-      <div className='card'>
-        {navigator.userAgent.toLowerCase().includes('macintosh') ? null : (
-          <>
-            <button id='openKeyboard' onClick={(e) => handleClick(e)}>
-              Open Keyboard
+    <div tabIndex={0} onKeyDown={(e) => handleKeyPress(e)} className='app'>
+      {!isRulesClicked ? (
+        <>
+          <input style={{ visibility: 'hidden' }} />
+          <div>
+            <img
+              src={!isDarkMode ? pianoLogoB : pianoLogoW}
+              className='logo'
+              alt='Piano logo'
+            />
+          </div>
+          <h1>NoteAbility</h1>
+          <h2>the Name that Song Game!</h2>
+          {/* {key !== 'none' && key !== 'Meta' ? <h3>key is {key}</h3> : null} */}
+          <div className='menu-buttons'>
+            <button className='menu-button'>Play</button>
+            <button className='menu-button' onClick={handleRulesClick}>
+              How To Play
             </button>
-          </>
-        )}
-      </div>
-      <audio src={a} data-note='a' preload='auto'></audio>
-      <audio src={w} data-note='w' preload='auto'></audio>
-      <audio src={s} data-note='s' preload='auto'></audio>
-      <audio src={e} data-note='e' preload='auto'></audio>
-      <audio src={d} data-note='d' preload='auto'></audio>
-      <audio src={f} data-note='f' preload='auto'></audio>
-      <audio src={t} data-note='t' preload='auto'></audio>
-      <audio src={g} data-note='g' preload='auto'></audio>
-      <audio src={y} data-note='y' preload='auto'></audio>
-      <audio src={h} data-note='h' preload='auto'></audio>
-      <audio src={u} data-note='u' preload='auto'></audio>
-      <audio src={j} data-note='j' preload='auto'></audio>
-      <audio src={k} data-note='k' preload='auto'></audio>
-      <audio src={o} data-note='o' preload='auto'></audio>
-      <audio src={l} data-note='l' preload='auto'></audio>
-      <audio src={p} data-note='p' preload='auto'></audio>
-      <audio src={semicolon} data-note=';' preload='auto'></audio>
+            <button className='menu-button dark-mode-toggle'>
+              {isDarkMode ? (
+                <MdLightMode onClick={handleDarkMode} />
+              ) : (
+                <MdDarkMode onClick={handleDarkMode} />
+              )}
+            </button>
+          </div>
+          <Piano handleKeyPress={handleKeyPress} />
+          {/* <div className='card'>
+            {navigator.userAgent.toLowerCase().includes('macintosh') ? null : (
+              <>
+                <button id='openKeyboard' onClick={(e) => handleClick(e)}>
+                  Open Keyboard
+                </button>
+              </>
+            )}
+          </div> */}
+        </>
+      ) : (
+        <Rules setIsRulesClicked={setIsRulesClicked} isDarkMode={isDarkMode} />
+      )}
     </div>
   );
 }
