@@ -1,0 +1,66 @@
+:root {
+  --bg-color: #e6e6e673;
+  --white: #ffffff;
+  --transparent-white: #ffffff66;
+  --desert-storm: #f8f8f8;
+  --soapstone: #fcfcfc;
+  --black: #000000;
+  --onyx: #111111;
+  --dark-jungle-green: #222222;
+  --ironside-grey: #666666;
+  --davy-grey: #555555;
+  --primary-shadow-color: #00000080;
+  --secondary-shadow-color: #000000b3;
+  --primary-transition: all 0.1s ease;
+  --secondary-transition: 0.3s ease;
+  /* --font-family: 'Source Serif Pro', serif; */
+}
+
+#settings {
+  height: 40vh;
+  position: relative;
+  text-align: center;
+}
+
+#players {
+  display: flex;
+  justify-content: space-around;
+}
+#player-names {
+  display: flex;
+  justify-content: space-around;
+  visibility: hidden;
+}
+
+#player-form {
+  display: flex;
+  justify-content: space-around;
+  /* visibility: hidden; */
+}
+
+#score-limit {
+  display: flex;
+  justify-content: space-around;
+}
+
+.player-hidden {
+  visibility: hidden;
+}
+
+.game-settings {
+  padding-right: 10px;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+/* Style the active class (and buttons on mouse-over) */
+.active,
+.btn:hover {
+  color: --var(onyx);
+}
+
+input {
+  padding-right: 1%;
+}
