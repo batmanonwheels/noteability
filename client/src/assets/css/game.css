@@ -22,29 +22,28 @@
   text-align: center;
 }
 
+#player-names {
+  display: flex;
+  max-height: 5vh;
+  justify-content: space-around;
+  display: none;
+}
+
 #players {
   display: flex;
   justify-content: space-around;
-}
-#player-names {
-  display: flex;
-  justify-content: space-around;
-  visibility: hidden;
+  display: block;
 }
 
 #player-form {
   display: flex;
-  justify-content: space-around;
-  /* visibility: hidden; */
+  justify-content: space-evenly;
 }
 
 #score-limit {
   display: flex;
   justify-content: space-around;
-}
-
-.player-hidden {
-  visibility: hidden;
+  display: block;
 }
 
 .game-settings {
