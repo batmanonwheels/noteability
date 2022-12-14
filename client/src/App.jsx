@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import 'animate.css';
 import pianoLogoB from './assets/piano_black.png';
 import pianoLogoW from './assets/piano_white.png';
 import './App.css';
@@ -9,7 +10,6 @@ import Rules from './components/modals/Rules';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 
 function App() {
-  // const [key, setKey] = useState('none');
   const [isPlayClicked, setIsPlayClicked] = useState(false);
   const [isRulesClicked, setIsRulesClicked] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -33,39 +33,31 @@ function App() {
     ';',
   ];
 
-  const handleKeyPress = (e) => {
-    if (!!e.key && goodKeys.indexOf(e.key) > -1) {
+  const handleTriggerAudio = (e) => {
+    let key = e.key;
+    if (!!e.key && goodKeys.indexOf(key.toLowerCase()) > -1) {
       const element = document.querySelector(
-        `#${e.key === ';' ? 'semicolon' : e.key}`
+        `#${key.toLowerCase() === ';' ? 'semicolon' : key.toLowerCase()}`
       );
-      // console.log(element);
       element.classList.toggle('playing');
       setTimeout(() => {
         element.classList.toggle('playing');
       }, '100');
     } else {
-      a;
     }
-
     let sounds = document.querySelectorAll('audio');
     for (let sound of sounds) {
-      // console.log(sound.getAttribute('data-note'), !sound.paused);
       if (!sound.paused) {
         sound.pause();
         sound.currentTime = 0;
       }
     }
-    // console.log(sounds.length);
-    // console.log(e.key === undefined);
-    // let audio = document.querySelector(`audio[data-note="${e.key}"]`);
-    // console.log(audio);
     let audio = !!e.key
-      ? document.querySelector(`audio[data-note="${e.key}"]`)
+      ? document.querySelector(`audio[data-note="${key.toLowerCase()}"]`)
       : document.querySelector(
           `audio[data-note="${e.target.getAttribute('data-note')}"]`
         );
     if (audio !== null) {
-      // console.log('Not Null');a
       playMedia(audio);
     }
   };
@@ -79,68 +71,89 @@ function App() {
     }
   }
 
-  const handleKeyboardButtonClick = (e) => {
-    let inputElement = document.getElementById('hiddenInput');
-    inputElement.style.visibility = 'visible'; // unhide the input
-    inputElement.focus(); // focus on it so keyboard pops
-    inputElement.style.visibility = 'hidden'; // hide it again
-  };
-
   const handlePlayClick = () => {
     setIsPlayClicked(true);
-    // console.log(isPlayClicked);
   };
 
-  const handleRulesClick = () => {
-    setIsRulesClicked(true);
-    // console.log(isRulesClicked);
+  const handleShowRules = () => {
+    let modal = document.querySelector('.modal');
+    let main = document.querySelector('.app');
+    isRulesClicked
+      ? (modal.style.display = 'none')
+      : (modal.style.display = 'block');
+    main.classList.toggle('is-blurred');
+    setIsRulesClicked(!isRulesClicked);
   };
 
   const handleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
-    // console.log(isDarkMode);
     let element = document.querySelector('.app');
     element.classList.toggle('dark-mode');
   };
 
   return (
-    <div tabIndex={0} onKeyDown={(e) => handleKeyPress(e)} className='app'>
-      {!isRulesClicked ? (
-        <>
-          {isPlayClicked ? (
-            <GameSettings isDarkMode={isDarkMode} />
-          ) : (
-            <>
-              <input style={{ visibility: 'hidden' }} />
-              <div>
-                <img
-                  src={!isDarkMode ? pianoLogoB : pianoLogoW}
-                  className='logo'
-                  alt='Piano logo'
-                />
-              </div>
-              <h1>NoteAbility</h1>
-              <h2>the Name that Song Game!</h2>
-              {/* {key !== 'none' && key !== 'Meta' ? <h3>key is {key}</h3> : null} */}
-              <div className='menu-buttons'>
-                <button className='menu-button' onClick={handlePlayClick}>
-                  Play
-                </button>
-                <button className='menu-button' onClick={handleRulesClick}>
-                  How To Play
-                </button>
-                <button className='menu-button dark-mode-toggle'>
-                  {isDarkMode ? (
-                    <MdLightMode onClick={handleDarkMode} />
-                  ) : (
-                    <MdDarkMode onClick={handleDarkMode} />
-                  )}
-                </button>
-              </div>
-            </>
-          )}
-          <Piano handleKeyPress={handleKeyPress} />
-          {/* <div className='card'>
+    <>
+      <div
+        tabIndex={0}
+        onKeyDown={(e) => handleTriggerAudio(e)}
+        className='app'
+      >
+        {isPlayClicked ? (
+          <GameSettings
+            isDarkMode={isDarkMode}
+            isPlayClicked={isPlayClicked}
+            setIsPlayClicked={setIsPlayClicked}
+            handleShowRules={handleShowRules}
+          />
+        ) : (
+          <>
+            <div>
+              <img
+                src={!isDarkMode ? pianoLogoB : pianoLogoW}
+                className='logo'
+                alt='Piano logo'
+              />
+            </div>
+            <h1>NoteAbility</h1>
+            <h2>the Name that Song Game!</h2>
+            {/* {key !== 'none' && key !== 'Meta' ? <h3>key is {key}</h3> : null} */}
+            <div className='menu-buttons'>
+              <button
+                data-text='Play'
+                className='menu-button'
+                onClick={handlePlayClick}
+              >
+                Play
+              </button>
+              <button
+                data-text='How To Play'
+                className='menu-button'
+                onClick={handleShowRules}
+              >
+                How To Play
+              </button>
+              <button
+                onClick={handleDarkMode}
+                data-text={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                className='menu-button dark-mode-toggle'
+              >
+                {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+              </button>
+              {/* <button
+                data-text={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                className='menu-button dark-mode-toggle'
+              >
+                {isDarkMode ? (
+                  <MdLightMode onClick={handleDarkMode} />
+                ) : (
+                  <MdDarkMode onClick={handleDarkMode} />
+                )}
+              </button> */}
+            </div>
+          </>
+        )}
+        <Piano handleTriggerAudio={handleTriggerAudio} />
+        {/* <div className='card'>
             {navigator.userAgent.toLowerCase().includes('macintosh') ? null : (
               <>
                 <button id='openKeyboard' onClick={(e) => handleClick(e)}>
@@ -149,41 +162,14 @@ function App() {
               </>
             )}
           </div> */}
-        </>
-      ) : (
-        <Rules setIsRulesClicked={setIsRulesClicked} isDarkMode={isDarkMode} />
-      )}
-    </div>
+      </div>
+      <Rules
+        setIsRulesClicked={setIsRulesClicked}
+        handleShowRules={handleShowRules}
+        isDarkMode={isDarkMode}
+      />
+    </>
   );
 }
 
 export default App;
-// if (goodKeys.indexOf(e.key) > -1 || !!e.target.getAttribute) {
-//   if (!!e.key && goodKeys.indexOf(e.key) > -1) {
-//     let element = document.querySelector(
-//       `#${e.key === ';' ? 'semicolon' : e.key}`
-//     );
-//     console.log(element);
-//     element.classList.toggle('playing');
-//     setTimeout(() => {
-//       element.classList.toggle('playing');
-//     }, '100');
-//   }
-//   let sounds = document.querySelectorAll('audio');
-//   for (let sound of sounds) {
-//     // console.log(sound.getAttribute('data-note'), !sound.paused);
-//     if (!sound.paused) {
-//       sound.pause();
-//       sound.currentTime = 0;
-//     }
-//   }
-//   let audio = !!e.key
-//     ? document.querySelector(`audio[data-note="${e.key}"]`)
-//     : document.querySelector(
-//         `audio[data-note="${e.target.getAttribute('data-note')}"]`
-//       );
-//   if (audio !== null) {
-//     // console.log('Not Null');a
-//     playMedia(audio);
-//   }
-// }

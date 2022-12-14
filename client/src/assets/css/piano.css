@@ -1,7 +1,6 @@
 .piano {
-  padding-top: 3vh;
-  max-height: rem;
-  /* max-width: 90rem; */
+  padding-top: 2rem;
+  min-width: 100%;
   padding-bottom: 0;
 }
 
@@ -50,9 +49,8 @@
 }
 
 .key {
-  /* height: 100%; */
   width: 9rem;
-  cursor: grab;
+  cursor: pointer;
   position: relative;
   border-radius: 0.1rem;
   margin: 0 0.1rem;
