@@ -1,4 +1,3 @@
-import React from 'react';
 import a from '../assets/audio/a.mp3';
 import w from '../assets/audio/w.mp3';
 import s from '../assets/audio/s.mp3';
@@ -18,7 +17,7 @@ import p from '../assets/audio/p.mp3';
 import semicolon from '../assets/audio/comma.mp3';
 import '../assets/css/piano.css';
 
-function Piano({ handleKeyPress }) {
+function Piano({ handleTriggerAudio }) {
   return (
     <div className='piano'>
       <div className='keys'>
@@ -26,103 +25,103 @@ function Piano({ handleKeyPress }) {
           className='key'
           id='a'
           data-note='a'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key sharp'
           id='w'
           data-note='w'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key'
           id='s'
           data-note='s'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key sharp'
           id='e'
           data-note='e'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key'
           id='d'
           data-note='d'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key'
           id='f'
           data-note='f'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key sharp'
           id='t'
           data-note='t'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key'
           id='g'
           data-note='g'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key sharp'
           id='y'
           data-note='y'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key'
           id='h'
           data-note='h'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key sharp'
           id='u'
           data-note='u'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key'
           id='j'
           data-note='j'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key'
           id='k'
           data-note='k'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key sharp'
           id='o'
           data-note='o'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key'
           id='l'
           data-note='l'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key sharp'
           id='p'
           data-note='p'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
         <div
           className='key'
           id='semicolon'
           data-note=';'
-          onClick={(e) => handleKeyPress(e)}
+          onClick={(e) => handleTriggerAudio(e)}
         ></div>
       </div>
       <>

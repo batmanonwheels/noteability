@@ -1,13 +1,8 @@
-import React from 'react';
 import pianoLogoB from '../../assets/piano_black.png';
 import pianoLogoW from '../../assets/piano_white.png';
-import '../../assets/css/rules.css';
+import '../../App.css';
 
-function Rules({ isDarkMode, setIsRulesClicked }) {
-  const handleRulesClose = () => {
-    setIsRulesClicked(false);
-  };
-
+function Rules({ isDarkMode, handleShowRules }) {
   return (
     <div className='modal'>
       <div>
@@ -48,7 +43,7 @@ function Rules({ isDarkMode, setIsRulesClicked }) {
           points (or the agreed upon number of points) wins the game.
         </p>
       </div>
-      <button className='modal-button' onClick={handleRulesClose}>
+      <button className='modal-button' onClick={handleShowRules}>
         Close
       </button>
     </div>
