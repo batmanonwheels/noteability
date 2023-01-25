@@ -1,7 +1,8 @@
 function PlayerPoints({ playerCount, playerNames, scoreLimit }) {
-  console.log(playerNames);
+  // console.log(playerNames);
   return (
     <div>
+      <span></span>
       {playerCount}, {scoreLimit}
     </div>
   );

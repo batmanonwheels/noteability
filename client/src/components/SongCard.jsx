@@ -1,22 +1,10 @@
-function SongCard() {
-  // const card = document.querySelector('#song-card');
-  // const tabs = card.querySelector('#tabs');
-  // const chars = tabs.querySelectorAll('.char');
-
-  // document.addEventListener('keypress', (event) => {
-  //   const key = event.key.toUpperCase();
-  //   const char = chars.find((char) => char.textContent === key);
-  //   if (char) {
-  //     char.style.color = '#FF0000';
-  //   }
-  // });
-
+function SongCard({ handleChangeSpan }) {
   return (
     <div id='song-card'>
-      <h1 id='song-name'></h1>
-      <h2 id='artist-name'></h2>
-      <h3 id='album-name'></h3>
-      <p id='release-year'></p>
+      <h1 id='song-name'>Seek & Destroy</h1>
+      <h2 id='artist-name'>SZA</h2>
+      <h3 id='album-name'>SOS</h3>
+      <p id='release-year'>2022</p>
       <p id='tabs'>
         <span class='char'>a</span>
         <span class='char'>s</span>

@@ -19,7 +19,7 @@ import '../assets/css/piano.css';
 
 function Piano({ handleTriggerAudio }) {
   return (
-    <div className='piano'>
+    <div className='piano' tabIndex={0}>
       <div className='keys'>
         <div
           className='key'
