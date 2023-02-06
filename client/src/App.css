@@ -10,7 +10,7 @@
 	overflow-y: hidden;
 }
 
-.app {
+#main-menu {
 	font-size: 1.05rem;
 	position: fixed;
 	text-align: center;
@@ -53,13 +53,13 @@ button {
 	background: transparent;
 	max-width: fit-content;
 	margin: 0.75rem;
-	border-bottom: 10px solid #ccc;
+	/* border-bottom: 10px solid #ccc; */
 }
 
-button:hover {
-	/* content: attr(data-text); */
-	border-bottom: 1px solid #ccc;
-}
+/* button:hover {
+	content: attr(data-text);
+	 border-bottom: 1px solid #ccc;
+} */
 
 /* button::after {
 	content: attr(data-text);
@@ -110,7 +110,7 @@ h1 {
 
 .menu-button:hover {
 	box-shadow: none;
-	border-bottom: 1px solid #ccc;
+	/* border-bottom: 1px solid #ccc; */
 	/* background: whitesmoke; */
 }
 
@@ -150,10 +150,9 @@ h1 {
 }
 
 #rules h2 {
-	border-bottom: 1px solid #ccc;
-	font-size: 2.5rem;
-	padding: 1rem;
-	margin: 0;
+	border-bottom: 2px dotted #ccc;
+	font-size: 2rem;
+	padding: 0.25rem;
 }
 
 #rules p {
@@ -198,6 +197,12 @@ input {
 #settings-container {
 	position: absolute;
 	top: 100;
+}
+
+#settings h2 {
+	border-bottom: 2px dotted #ccc;
+	font-size: 2rem;
+	padding: 0.25rem;
 }
 
 #player-counter {
@@ -274,3 +279,37 @@ input {
 }
 
 /* GAME */
+
+#scoreboard {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(1rem, 1fr));
+	/* grid-template-rows: 0.2fr; */
+	grid-column-gap: 0.25rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	margin-left: 0.1rem;
+	margin-right: 0.1rem;
+	height: 2rem;
+}
+
+#scoreboard div {
+	border-bottom: 0.1em solid #ccc;
+	border-left: 0.07em solid #ccc;
+	border-right: 0.05em solid #ccc;
+	border-radius: 0.25rem;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	justify-content: center;
+	cursor: pointer;
+}
+
+#scoreboard p {
+	margin-top: 0.4rem;
+	margin-bottom: 0.25rem;
+}
+
+#tabs {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(0.25rem, 1fr));
+	/* grid-column-gap: 0.1rem; */
+}

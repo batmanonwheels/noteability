@@ -8,7 +8,8 @@ function Rules({ isDarkMode, setIsModalVisible, handleShowModal }) {
 		<div id='rules' className='modal'>
 			<div>
 				<img
-					src={!isDarkMode ? pianoLogoB : pianoLogoW}
+					// src={!isDarkMode ? pianoLogoB : pianoLogoW}
+					src={pianoLogoB}
 					className='logo'
 					alt='Piano logo'
 				/>
@@ -18,18 +19,13 @@ function Rules({ isDarkMode, setIsModalVisible, handleShowModal }) {
 			<div className='rules'>
 				<h2 className='rules h2'>How To Play</h2>
 				<p className='rules'>
-					The piano player chooses a song to play for the player to their left.
-					The piano player then chooses a song for the next player clockwise and
-					finally plays the third song for the next player. If the player whose
-					song it is can guess the title they will receive four points while the
-					piano player will receive two points.
+					The current pianist is randomly given a song to play for everyone.
 					<br></br>
 					<br></br>
-					If the player is unable to guess their song though, all of the other
-					players have an opportunity to guess the song's title. If another
-					player guesses correctly they score two points while the piano player
-					scores one point. The player who guessed correctly then takes the
-					piano and draws a new card.
+					All players have an opportunity to guess the song's title. If another
+					player guesses correctly, they score two points while the pianist
+					scores one point. The player who guessed correctly then becomes the
+					new pianist and receives a new song.
 					<br></br>
 					<br></br>
 					If all of the players believe the piano player is purposely sabotaging
@@ -40,10 +36,7 @@ function Rules({ isDarkMode, setIsModalVisible, handleShowModal }) {
 					<br></br>
 				</p>
 				<h2>How To Win</h2>
-				<p className='rules'>
-					In both the team and individual game, the first player/team to get 50
-					points (or the agreed upon number of points) wins the game.
-				</p>
+				<p className='rules'>The first player to reach the score limit wins!</p>
 			</div>
 			<button id='return-button' onClick={() => handleShowModal('#rules')}>
 				Main Menu

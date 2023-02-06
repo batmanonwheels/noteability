@@ -1,162 +1,149 @@
 import { useState } from 'react';
 import '../../App.css';
-import Game from '../Game';
+import Game from '../Game.jsx';
 import pianoLogoB from '../../assets/piano_black.png';
 import pianoLogoW from '../../assets/piano_white.png';
+import { useNavigate } from 'react-router-dom';
 
-function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
-	const playerData = {
-		name: '',
-		score: 0,
-		// color: '',
-	};
+export default function GameSettings({
+	isDarkMode,
+	setIsDarkMode,
+	gameSettings,
+	setGameSettings,
+	handleShowModal,
+}) {
+	const navigate = useNavigate();
 	const [playerCount, setPlayerCount] = useState(null);
-	const [playerNames, setPlayerNames] = useState([
-		playerData,
-		playerData,
-		playerData,
-		playerData,
-		playerData,
-		playerData,
-	]);
+	const [playerOneName, setPlayerOneName] = useState('');
+	const [playerTwoName, setPlayerTwoName] = useState('');
+	const [playerThreeName, setPlayerThreeName] = useState('');
+	const [playerFourName, setPlayerFourName] = useState('');
+	const [playerFiveName, setPlayerFiveName] = useState('');
+	const [playerSixName, setPlayerSixName] = useState('');
+	const initialPlayerData = [
+		{
+			player: 1,
+			name: playerOneName,
+			// name: '',
+			score: 0,
+			color: 'red',
+		},
+		{
+			player: 2,
+			name: playerTwoName,
+			score: 0,
+			color: 'orange',
+		},
+		{
+			player: 3,
+			name: playerThreeName,
+			score: 0,
+			color: 'yellow',
+		},
+		{
+			player: 4,
+			name: playerFourName,
+			score: 0,
+			color: 'green',
+		},
+		{
+			player: 5,
+			name: playerFiveName,
+			score: 0,
+			color: 'blue',
+		},
+		{
+			player: 6,
+			name: playerSixName,
+			score: 0,
+			color: 'indigo',
+		},
+	];
+	const [playerInfo, setPlayerInfo] = useState(initialPlayerData);
 	const [scoreLimit, setScoreLimit] = useState(null);
-	const [isReady, setIsReady] = useState(false);
-	const [gameSettings, setGameSettings] = useState({});
-	console.log(playerNames[0].name);
 
-	const handleGameSettings = (e, setting) => {
-		switch (setting) {
-			case 'playerCount':
-				// console.log(`There are ${e.target.id} players`);
-				setPlayerCount(parseInt(e.target.id));
-				const players = [...document.querySelectorAll('.player')];
-				setPlayerNames([
-					playerData,
-					playerData,
-					playerData,
-					playerData,
-					playerData,
-					playerData,
-				]);
-				if (playerCount < 6) {
-					setPlayerNames(playerNames.slice(0, parseInt(playerCount)));
-				}
-				players.forEach((player) => {
-					player.style.display = 'block';
-					player.classList.remove('hidden');
-					player.value = null;
-					if (players.indexOf(player) >= parseInt(e.target.id)) {
-						player.style.display = 'none';
-						player.classList.toggle('hidden');
-						// player.value = null;
-					}
-				});
-
-				break;
-			case 'playerNames':
-				// console.log(playerNames);
-				let tempPlayerNames = playerNames.slice();
-				tempPlayerNames[0].name = e.target.value;
-				console.log(tempPlayerNames);
-				setPlayerNames(tempPlayerNames);
-				break;
-			case 'scoreLimit':
-				console.log(`The score limit is ${e.target.id}`);
-				setScoreLimit(parseInt(e.target.id));
-				break;
-			case 'play':
-				const settingsObj = {
-					game_id: randomString(12),
-					player_count: playerCount,
-					player_names: playerNames,
-					score_limit: scoreLimit,
-				};
-				settingsObj.player_names.length === playerCount
-					? setGameSettings(settingsObj)
-					: alert(
-							'Invalid settings, try again! Make sure to complete the form in order!'
-					  );
-				break;
-		}
-	};
-	// const switchSetting = (current, next, clear) => {
-	// 	// const parentDiv = document.querySelector('#settings-container');
-	// 	const currentDiv = document.querySelector(current);
-	// 	const nextDiv = document.querySelector(next);
-	// 	currentDiv.classList.remove('.m-fadeIn');
-	// 	currentDiv.classList.toggle('.m-fadeOut');
-	// 	currentDiv.style.display = 'none';
-	// 	nextDiv.style.display = 'block';
-	// 	nextDiv.classList.remove('.m-fadeOut');
-	// 	nextDiv.classList.toggle('.m-fadeIn');
-	// 	!!clear ? setPlayerNames({}) : null;
-	// 	// console.log(currentDiv.className, nextDiv.className);
-	// };
-
-	// const handlePlayerCount = (e, num) => {
-	// 	e.target.focus();
-	// 	setPlayerCount(num);
-	// 	setPlayerNames({});
-	// 	const div = document.querySelector('#player-names');
-	// 	// div.style.display = 'inline';
-	// 	const players = [...document.querySelectorAll('.player')];
-	// 	players.forEach((player) => {
-	// 		player.style.display = 'block';
-	// 		if (players.indexOf(player) >= parseInt(e.target.id)) {
-	// 			player.style.display = 'none';
-	// 			player.value = null;
-	// 		}
-	// 	});
-	// console.log(player.children[0].value);
-	// const name = player.children[0].name.replace('-', '_');
-	// player.children[0].value === null
-	//   ? null
-	//   : setPlayerNames({ ...playerNames, [name]: player.children[0].value });
-	// });
-	// 	switchSetting('#player-counter', '#player-names');
-	// };
-
-	// const handlePlayerNames = (e) => {
-	// 	const player = e.target.name.replace('-', '_');
-	// 	// const playerObj = {[player]: e.target.value, points = 0}
-	// 	setPlayerNames({ ...playerNames, [player]: e.target.value });
-	// };
-
-	// const handleScoreLimit = (e) => {
-	// 	setScoreLimit(parseInt(e.target.id));
-	// 	// console.log(scoreLimit);
-	// };
-
-	// const handleSubmit = () => {
-	// 	const settingsObj = {
-	// 		game_id: randomString(12),
-	// 		player_count: playerCount,
-	// 		player_names: playerNames,
-	// 		score_limit: scoreLimit,
-	// 	};
-	// 	{
-	// 		Object.keys(settingsObj.player_names).length === playerCount
-	// 			? setGameSettings(settingsObj)
-	// 			: // setIsReady(true);
-	// 			  alert('Invalid settings, try again!');
-	// 	}
-	// 	console.log(gameSettings);
-	// };
-
-	function randomString(length) {
+	const randomString = (length) => {
 		return Math.round(
 			Math.pow(36, length + 1) - Math.random() * Math.pow(36, length)
 		)
 			.toString(36)
 			.slice(1);
-	}
+	};
+
+	const settingsObj = {
+		game_id: randomString(6),
+		player_count: playerCount,
+		player_info: playerInfo,
+		score_limit: scoreLimit,
+	};
+
+	const handlePlayerName = (e) => {
+		setPlayerInfo(initialPlayerData.slice(0, parseInt(playerCount)));
+	};
+
+	const handlePlayerNameChange = (e, setter) => {
+		console.log(e.target.value);
+		setter(e.target.value);
+		handlePlayerName(e);
+	};
+
+	const handlePlayerCount = (e) => {
+		setPlayerCount(parseInt(e.target.id));
+		const players = [...document.querySelectorAll('.player')];
+		players.forEach((player) => {
+			player.disabled = false;
+			if (players.indexOf(player) >= parseInt(e.target.id)) {
+				player.disabled = true;
+			}
+		});
+	};
+
+	const handleScoreLimit = (e) => {
+		setScoreLimit(parseInt(e.target.id));
+	};
+
+	const startGame = () => {
+		if (settingsObj.player_info.length === playerCount) {
+			setGameSettings(settingsObj);
+			if (gameSettings.game_id != undefined) {
+				navigate(`p/${gameSettings.game_id}`);
+			} else {
+				alert('Try again!');
+			}
+		}
+	};
+
+	const handleStartGame = (e) => {
+		console.log(playerInfo);
+		setPlayerInfo(initialPlayerData.slice(0, parseInt(playerCount)));
+		startGame();
+	};
+
+	const handleCloseModal = (e) => {
+		setPlayerInfo(initialPlayerData);
+		setPlayerOneName('');
+		setPlayerTwoName('');
+		setPlayerThreeName('');
+		setPlayerFourName('');
+		setPlayerFiveName('');
+		setPlayerSixName('');
+		setPlayerCount(null);
+		setScoreLimit(null);
+		setGameSettings({});
+		const players = [...document.querySelectorAll('.player')];
+		players.forEach((player) => {
+			player.disabled = true;
+		});
+		handleShowModal('#settings');
+	};
 
 	return (
 		<div className='overlay'>
 			<div id='settings' className='modal'>
 				<div>
 					<img
-						src={!isDarkMode ? pianoLogoB : pianoLogoW}
+						// src={isDarkMode ? pianoLogoB : pianoLogoW}
+						src={pianoLogoB}
 						className='logo'
 						alt='Piano logo'
 					/>
@@ -169,7 +156,7 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='radio'
 							name='count'
 							id='2'
-							onClick={(e) => handleGameSettings(e, 'playerCount')}
+							onClick={(e) => handlePlayerCount(e)}
 						>
 							2 players
 						</button>
@@ -178,7 +165,7 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='radio'
 							name='count'
 							id='3'
-							onClick={(e) => handleGameSettings(e, 'playerCount')}
+							onClick={(e) => handlePlayerCount(e)}
 						>
 							3 players
 						</button>
@@ -187,7 +174,7 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='radio'
 							name='count'
 							id='4'
-							onClick={(e) => handleGameSettings(e, 'playerCount')}
+							onClick={(e) => handlePlayerCount(e)}
 						>
 							4 players
 						</button>
@@ -196,7 +183,7 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='radio'
 							name='count'
 							id='5'
-							onClick={(e) => handleGameSettings(e, 'playerCount')}
+							onClick={(e) => handlePlayerCount(e)}
 						>
 							5 players
 						</button>
@@ -205,7 +192,7 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='radio'
 							name='count'
 							id='6'
-							onClick={(e) => handleGameSettings(e, 'playerCount')}
+							onClick={(e) => handlePlayerCount(e)}
 						>
 							6 players
 						</button>
@@ -214,58 +201,70 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 						<h2 className='settings-prompt'>What are your names?</h2>
 						<form id='player-form'>
 							<input
+								disabled
 								type='text'
-								className='player hidden'
+								className='player'
 								id='player-one'
 								name='0'
 								placeholder='Player 1'
-								value={playerNames[0].name}
-								onChange={(e) => handleGameSettings(e, 'playerNames')}
+								value={playerOneName}
+								// onChange={(e) => handlePlayerNameChange(e, setPlayerOneName)}
+								onChange={(e) => setPlayerOneName(e.target.value)}
 							></input>
 							<input
+								disabled
 								type='text'
-								className='player hidden'
+								className='player'
 								id='player-two'
 								name='1'
 								placeholder='Player 2'
-								value={playerNames[1].name}
-								onChange={(e) => handleGameSettings(e, 'playerNames')}
+								value={playerTwoName}
+								// onChange={(e) => handlePlayerNameChange(e, setPlayerTwoName)}
+								onChange={(e) => setPlayerTwoName(e.target.value)}
 							></input>
 							<input
+								disabled
 								type='text'
-								className='player hidden'
+								className='player'
 								id='player-three'
 								name='2'
 								placeholder='Player 3'
-								value={playerNames[2].name}
-								onChange={(e) => handleGameSettings(e, 'playerNames')}
+								value={playerThreeName}
+								// onChange={(e) => handlePlayerNameChange(e, setPlayerThreeName)}
+								onChange={(e) => setPlayerThreeName(e.target.value)}
 							></input>
 							<input
+								disabled
 								type='text'
-								className='player hidden'
+								className='player'
 								id='player-four'
 								name='3'
 								placeholder='Player 4'
-								value={playerNames[3].name}
-								onChange={(e) => handleGameSettings(e, 'playerNames')}
+								value={playerFourName}
+								// onChange={(e) => handlePlayerNameChange(e, setPlayerFourName)}
+								onChange={(e) => setPlayerFourName(e.target.value)}
 							></input>
 							<input
+								disabled
 								type='text'
-								className='player hidden'
+								className='player'
 								id='player-five'
 								name='4'
 								placeholder='Player 5'
-								value={playerNames[4].name}
-								onChange={(e) => handleGameSettings(e, 'playerNames')}
+								value={playerFiveName}
+								// onChange={(e) => handlePlayerNameChange(e, setPlayerFiveName)}
+								onChange={(e) => setPlayerFiveName(e.target.value)}
 							></input>
 							<input
+								disabled
 								type='text'
-								className='player hidden'
+								className='player'
 								id='player-six'
 								name='5'
 								placeholder='Player 6'
-								value={playerNames[5].name}
-								onChange={(e) => handleGameSettings(e, 'playerNames')}
+								value={playerSixName}
+								// onChange={(e) => handlePlayerNameChange(e, setPlayerSixName)}
+								onChange={(e) => setPlayerSixName(e.target.value)}
 							></input>
 						</form>
 					</div>
@@ -279,7 +278,7 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='button'
 							name='score'
 							id='20'
-							onClick={(e) => handleGameSettings(e, 'scoreLimit')}
+							onClick={(e) => handleScoreLimit(e)}
 						>
 							20 points
 						</button>
@@ -288,7 +287,7 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='button'
 							name='score'
 							id='30'
-							onClick={(e) => handleGameSettings(e, 'scoreLimit')}
+							onClick={(e) => handleScoreLimit(e)}
 						>
 							30 points
 						</button>
@@ -297,7 +296,7 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='button'
 							name='score'
 							id='40'
-							onClick={(e) => handleGameSettings(e, 'scoreLimit')}
+							onClick={(e) => handleScoreLimit(e)}
 						>
 							40 points
 						</button>
@@ -306,7 +305,7 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='button'
 							name='score'
 							id='50'
-							onClick={(e) => handleGameSettings(e, 'scoreLimit')}
+							onClick={(e) => handleScoreLimit(e)}
 						>
 							50 points
 						</button>
@@ -315,32 +314,32 @@ function GameSettings({ isDarkMode, setIsModalVisible, handleShowModal }) {
 							type='button'
 							name='score'
 							id='60'
-							onClick={(e) => handleGameSettings(e, 'scoreLimit')}
+							onClick={(e) => handleScoreLimit(e)}
 						>
 							60 points
 						</button>
-						<div>
+					</div>
+					<div>
+						<button
+							id='return-button'
+							className='modal-button'
+							onClick={() => handleCloseModal()}
+						>
+							Main Menu
+						</button>
+						{scoreLimit ? (
 							<button
-								id='return-button'
-								onClick={() => handleShowModal('#settings')}
+								className='modal-button'
+								id='play-button'
+								onClick={() => handleStartGame(e)}
 							>
-								Main Menu
+								{/* {(gameSettings.game_id = '' ? 'Play' : 'Save Settings')} */}
+								Play
 							</button>
-							{scoreLimit ? (
-								<button
-									className='btn'
-									id='play-button'
-									onClick={() => handleGameSettings(e, 'play')}
-								>
-									Play
-								</button>
-							) : null}
-						</div>
+						) : null}
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 }
-
-export default GameSettings;

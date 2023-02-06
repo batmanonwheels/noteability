@@ -3,16 +3,18 @@ import 'animate.css';
 import pianoLogoB from './assets/piano_black.png';
 import pianoLogoW from './assets/piano_white.png';
 import './App.css';
+import MainMenu from './components/MainMenu';
+import Game from './components/Game';
 import Piano from './components/Piano';
 import SongCard from './components/SongCard';
 import GameSettings from './components/modals/GameSettings';
 import Rules from './components/modals/Rules';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
+import { Route, Router, Routes } from 'react-router-dom';
 
-function App() {
-	// const [isPlayClicked, setIsPlayClicked] = useState(false);
-	const [isModalVisible, setIsModalVisible] = useState(false);
+export default function App() {
 	const [isDarkMode, setIsDarkMode] = useState(false);
+	const [gameSettings, setGameSettings] = useState({});
 	const goodKeys = [
 		'a',
 		'w',
@@ -32,7 +34,6 @@ function App() {
 		'p',
 		';',
 	];
-
 	const handleTriggerAudio = (e) => {
 		let key = e.key;
 		if (!!e.key && goodKeys.indexOf(key.toLowerCase()) > -1) {
@@ -70,86 +71,33 @@ function App() {
 			console.log(err);
 		}
 	}
-
-	const handleShowModal = (elementId) => {
-		let modal = document.querySelector(`${elementId}`);
-		let main = document.querySelector('.app');
-		isModalVisible
-			? (modal.style.display = 'none')
-			: (modal.style.display = 'block');
-		main.classList.toggle('is-blurred');
-		setIsModalVisible(!isModalVisible);
-	};
-
-	const handleDarkMode = () => {
-		setIsDarkMode(!isDarkMode);
-		let element = document.querySelector('.app');
-		element.classList.toggle('dark-mode');
-	};
-
 	return (
-		<>
-			<div
-				tabIndex={0}
-				onKeyDown={(e) => handleTriggerAudio(e)}
-				className='app'
-			>
-				<div id='game-area'>
-					<img
-						src={!isDarkMode ? pianoLogoB : pianoLogoW}
-						className='logo'
-						alt='Piano logo'
+		<Routes>
+			<Route
+				path='/'
+				element={
+					<MainMenu
+						isDarkMode={isDarkMode}
+						setIsDarkMode={setIsDarkMode}
+						gameSettings={gameSettings}
+						setGameSettings={setGameSettings}
+						handleTriggerAudio={handleTriggerAudio}
 					/>
-					<h1>NoteAbility</h1>
-					<h2>the Name that Song Game!</h2>
-					{/* {key !== 'none' && key !== 'Meta' ? <h3>key is {key}</h3> : null} */}
-					<div className='menu-buttons'>
-						<button
-							data-text='Play'
-							className='menu-button'
-							onClick={() => handleShowModal('#settings')}
-						>
-							Start
-						</button>
-						<button
-							data-text='How To Play'
-							className='menu-button'
-							onClick={() => handleShowModal('#rules')}
-						>
-							How To Play
-						</button>
-						<button
-							onClick={handleDarkMode}
-							data-text={isDarkMode ? 'Light Mode' : 'Dark Mode'}
-							className='menu-button dark-mode-toggle'
-						>
-							{isDarkMode ? 'Light Mode' : 'Dark Mode'}
-						</button>
-					</div>
-				</div>
-				<Piano handleTriggerAudio={handleTriggerAudio} />
-				{/* <div className='card'>
-            {navigator.userAgent.toLowerCase().includes('macintosh') ? null : (
-              <>
-                <button id='openKeyboard' onClick={(e) => handleClick(e)}>
-                  Open Keyboard
-                </button>
-              </>
-            )}
-          </div> */}
-			</div>
-			<Rules
-				setIsModalVisible={setIsModalVisible}
-				handleShowModal={handleShowModal}
-				isDarkMode={isDarkMode}
+				}
 			/>
-			<GameSettings
-				isDarkMode={isDarkMode}
-				setIsModalVisible={setIsModalVisible}
-				handleShowModal={handleShowModal}
+			<Route
+				path='p/:gameId'
+				element={
+					<Game
+						goodKeys={goodKeys}
+						isDarkMode={isDarkMode}
+						setIsDarkMode={setIsDarkMode}
+						gameSettings={gameSettings}
+						setGameSettings={setGameSettings}
+						handleTriggerAudio={handleTriggerAudio}
+					/>
+				}
 			/>
-		</>
+		</Routes>
 	);
 }
-
-export default App;
