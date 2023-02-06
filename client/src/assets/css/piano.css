@@ -1,7 +1,11 @@
 .piano {
   padding-top: 2rem;
+  position: absolute;
   min-width: 100%;
-  padding-bottom: 0;
+  /* padding-bottom: 0; */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 /* * {

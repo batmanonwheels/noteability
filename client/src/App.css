@@ -1,94 +1,105 @@
 #root {
-  /* background: var(--desert-storm);
+	/* background: var(--desert-storm);
   color: #121212; */
-  font-size: 62.5%;
-  text-align: center;
-  min-width: 100%;
-  min-height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
+	font-size: 62.5%;
+	min-width: 100%;
+	min-height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	overflow-x: hidden;
+	overflow-y: hidden;
 }
 
-.app {
-  font-size: 1.05rem;
-  position: relative;
+#main-menu {
+	font-size: 1.05rem;
+	position: fixed;
+	text-align: center;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.game-area {
+	height: 50%;
+	position: fixed;
 }
 
 .is-blurred {
-  filter: blur(2px);
-  -webkit-filter: blur(2px);
+	pointer-events: none;
+	filter: blur(2px);
+	-webkit-filter: blur(2px);
 }
 
 :root {
-  --bg-color: #e6e6e673;
-  --white: #ffffff;
-  --transparent-white: #ffffff66;
-  --desert-storm: #f8f8f8;
-  --soapstone: #fcfcfc;
-  --black: #000000;
-  --onyx: #111111;
-  --dark-jungle-green: #222222;
-  --ironside-grey: #666666;
-  --davy-grey: #555555;
-  --primary-shadow-color: #00000080;
-  --secondary-shadow-color: #000000b3;
-  --primary-transition: all 0.1s ease;
-  --secondary-transition: 0.3s ease;
+	--bg-color: #e6e6e673;
+	--white: #ffffff;
+	--transparent-white: #ffffff66;
+	--desert-storm: #f8f8f8;
+	--soapstone: #fcfcfc;
+	--black: #000000;
+	--onyx: #111111;
+	--dark-jungle-green: #222222;
+	--ironside-grey: #666666;
+	--davy-grey: #555555;
+	--primary-shadow-color: #00000080;
+	--secondary-shadow-color: #000000b3;
+	--primary-transition: all 0.1s ease;
+	--secondary-transition: 0.3s ease;
 }
 
 button {
-  position: relative;
-  line-height: 1;
-  background: transparent;
-  max-width: fit-content;
-  margin: 0.75rem;
+	position: relative;
+	line-height: 1;
+	background: transparent;
+	max-width: fit-content;
+	margin: 0.75rem;
+	/* border-bottom: 10px solid #ccc; */
 }
 
 /* button:hover {
-  content: attr(data-text);
+	content: attr(data-text);
+	 border-bottom: 1px solid #ccc;
 } */
 
-button::after {
-  /* content: attr(data-text); */
-  z-index: 2;
-  width: 100%;
-  position: absolute;
-  height: 0.95em;
-  top: 0;
-  right: 0;
-  transition: transform 500ms;
-  transition-timing-function: cubic-bezier(0.83, 0.3, 0.23, 0.92);
-  transform-origin: top right;
-}
+/* button::after {
+	content: attr(data-text);
+	z-index: 2;
+	width: 100%;
+	position: absolute;
+	height: 0.95em;
+	top: 0;
+	right: 0;
+	transition: transform 500ms;
+	transition-timing-function: cubic-bezier(0.83, 0.3, 0.23, 0.92);
+	transform-origin: top right;
+} */
 
-button:hover::after {
-  background-color: #000000;
-  transform: scale(3, 2.25);
-  width: 1rem;
-}
+/* button:hover::after {
+	background-color: #000000;
+	transform: scale(3, 2.25);
+	width: 1rem;
+} */
 
 h1 {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .logo {
-  height: 6em;
-  padding: 1em;
+	height: 6em;
+	padding: 1em;
 }
 
 .card {
-  padding: 2em;
+	padding: 2em;
 }
 
 .dark-mode {
-  background-color: #121212;
-  color: white;
+	background-color: #121212;
+	color: white;
 }
 
 .menu-buttons {
-  max-height: 3rem;
+	max-height: 1rem;
 }
 /* .menu-button {
   border: 0;
@@ -98,127 +109,207 @@ h1 {
 } */
 
 .menu-button:hover {
-  box-shadow: none;
-  /* background: whitesmoke; */
+	box-shadow: none;
+	/* border-bottom: 1px solid #ccc; */
+	/* background: whitesmoke; */
 }
 
-/* RULES */
+/* MODALS */
+.overlay {
+	z-index: 19;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+}
 .modal {
-  display: none;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: 1.1s ease-in;
-  box-shadow: -2rem 2rem 2rem rgba(black, 0.2);
-  /* filter: blur(0);
-  transform: scale(1); */
-  padding: 2rem;
-  z-index: 20;
-  width: 50%;
-  height: fit-content;
-  overflow: auto;
-  /* background-color: rgb(0, 0, 0);
+	pointer-events: auto;
+	background: whitesmoke;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	filter: blur(0);
+	transform: scale(-0);
+	transform: translate(-50%, -50%);
+	transition: 1.1s ease-out;
+	box-shadow: -2rem 2rem 2rem rgba(black, 0.2);
+	padding: 2rem;
+	text-align: center;
+	z-index: 20;
+	width: 50%;
+	height: fit-content;
+	overflow: hidden;
+	/* background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4); */
 }
+/* RULES */
 
-.rules h2 {
-  border-bottom: 1px solid #ccc;
-  font-size: 2.5rem;
-  padding: 1rem;
-  margin: 0;
+#rules {
+	display: none;
 }
 
-.rules p {
-  font-size: 3.5ch;
+#rules h2 {
+	border-bottom: 2px dotted #ccc;
+	font-size: 2rem;
+	padding: 0.25rem;
+}
+
+#rules p {
+	font-size: 3.5ch;
 }
 .content {
-  padding: 1rem;
+	padding: 1rem;
 }
 .actions {
-  border-top: 1px solid #ccc;
-  background: #eee;
-  padding: 0.5rem 1rem;
+	border-top: 1px solid #ccc;
+	background: #eee;
+	padding: 0.5rem 1rem;
 }
 
 .modal-button {
-  border: 0;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  font-size: 3.5ch;
-  line-height: 1;
+	border: 0;
+	border-radius: 5px;
+	margin-bottom: 1rem;
+	font-size: 3.5ch;
+	line-height: 1;
 }
 
-.modal-button:hover {
-  box-shadow: none;
-  transform: none;
-  background: whitesmoke;
-}
+/* .modal-button:hover {
+	box-shadow: none;
+	transform: none;
+	background: whitesmoke;
+} */
 
 /* SETTINGS */
 
-input {
-  font-size: 1.25rem;
+#settings {
+	display: none;
 }
 
-#settings {
-  min-height: 22.1rem;
-  /* position: relative; */
+input {
+	font-size: 0.75rem;
 }
+/* #settings {
+	position: relative;
+} */
 
 #settings-container {
-  margin-top: 100rem;
+	position: absolute;
+	top: 100;
+}
+
+#settings h2 {
+	border-bottom: 2px dotted #ccc;
+	font-size: 2rem;
+	padding: 0.25rem;
 }
 
 #player-counter {
-  justify-content: space-around;
-  display: block;
+	justify-content: space-around;
+	display: block;
 }
 
 #player-names {
-  display: none;
-  justify-content: space-around;
+	/* justify-content: space-around; */
+	max-width: 100%;
 }
 
 #player-form {
-  display: flex;
-  justify-content: space-evenly;
+	display: grid;
+	max-width: 100%;
+	/* padding-left: 1.5rem;
+	padding-right: 1.5rem; */
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1rem;
+	/* justify-content: space-around; */
+}
+
+.player {
+	grid-column: span 2;
+	/* background-color: #000000; */
+	font-size: 1.25rem;
+	text-align: center;
+}
+
+.player::nth-last-child(1):nth-child(even) {
+	/* grid-column: 2 / span 2; */
+	background-color: #ffffff;
 }
 
 #score-limit {
-  display: none;
-  justify-content: space-around;
+	justify-content: space-around;
 }
 
-/*
 .settings-prompt {
-  padding-right: 10px;
-} */
-
-.active,
-.btn:hover {
-  color: --var(davy-grey);
+	padding-right: 10px;
+	font-size: 2rem;
+}
+.settings-btn {
+	font-size: 1.18rem;
+}
+.settings-btn[name='count']:checked {
+	background-color: #000000;
+}
+.settings-btn[name='score']:checked {
+	background-color: #000000;
 }
 
-.return-button {
-  height: 100vh;
+#return-button {
+	font-size: 1rem;
+}
+#play-button {
+	font-size: 1.1rem;
 }
 
 .m-fadeOut {
-  transition: fadeInAnimation ease 3s;
+	transition: fadeInAnimation ease 3s;
 }
 .m-fadeIn {
-  animation: fadeInAnimation ease 3s;
+	animation: fadeInAnimation ease 3s;
 }
 
 @keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+/* GAME */
+
+#scoreboard {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(1rem, 1fr));
+	/* grid-template-rows: 0.2fr; */
+	grid-column-gap: 0.25rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	margin-left: 0.1rem;
+	margin-right: 0.1rem;
+	height: 2rem;
+}
+
+#scoreboard div {
+	border-bottom: 0.1em solid #ccc;
+	border-left: 0.07em solid #ccc;
+	border-right: 0.05em solid #ccc;
+	border-radius: 0.25rem;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	justify-content: center;
+	cursor: pointer;
+}
+
+#scoreboard p {
+	margin-top: 0.4rem;
+	margin-bottom: 0.25rem;
+}
+
+#tabs {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(0.25rem, 1fr));
+	/* grid-column-gap: 0.1rem; */
 }
