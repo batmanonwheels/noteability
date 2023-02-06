@@ -1,15 +1,23 @@
 # Noteability, The Name the Song Game
-<img width="1512" alt="Screen Shot 2022-09-05 at 2 58 17 PM" src="https://www.geekyhobbies.com/wp-content/uploads/2017/05/Noteability-Box.jpg.webp">
+<img width="1467" alt="image" src="https://user-images.githubusercontent.com/5254749/217098731-71317e59-c0e9-4489-910f-ddb2c117a8a7.png">
 
+## About
 Noteability is a game that allows you to play a song on a virtual(or physical) piano and have your friends guess the name of it. 
 
 It's inspired by but not related to TIGER Games' game of the same name.
 
+<img width="1512" alt="Screen Shot 2022-09-05 at 2 58 17 PM" src="https://www.geekyhobbies.com/wp-content/uploads/2017/05/Noteability-Box.jpg.webp">
+
 "Introduced in 1990, Noteability is a "guess the music title" trivia game. The game's gimmick--a plastic grand piano that actually plays a tune--is also key in game play. The piano keys are marked with numbers, which correspond to number sequences given on the trivia cards. Most reviews indicate that the method works as long as the player gets the timing correct. Apparently, newer versions don't exist and players complain that the songs used in the game are all old standards. Name that tune!" - The Strong National Museum of Play
 
-> Check out the live frontend [_here_](https://syntesthesium.herokuapp.com/). -->
 
-<!-- ## Table of Contents
+## Project Status
+- Project is: _under construction!_.
+
+
+<!-- ## Check out the live frontend [_here_](https://syntesthesium.herokuapp.com/). 
+
+ ## Table of Contents
 * [General Info](#general-information)
 * [GitHub Repo](#github-repos)
 * [Technologies Used](#technologies-used)
@@ -110,5 +118,4 @@ Take the following steps to set up the servers in a development environment
 4. View recent reviews, and like/comment on them to give feedback!
  -->
  
-## Project Status
-- Project is: _under construction!_.
+
